@@ -161,7 +161,7 @@ class Functions
      */
     function validate($aciklama)
     {
-        $temizle = strip_tags($aciklama[0][0]);
+        $temizle = strip_tags($aciklama);
         $temizle = str_replace('<div', '', $temizle);
         $temizle = htmlentities($temizle);
         $temizle = str_replace('<font', '', $temizle);

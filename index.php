@@ -22,6 +22,7 @@ for ( $j = 0; $j < 20 ; $j++ )
     preg_match_all('@<div id="realtyInfo" class="detail-panel">(.*?)</div>@si',$lokasyon, $detaylar);
     preg_match_all('@<ul class="info phone" id="ulPhone">(.*?)</ul>@si',$lokasyon, $contact);
     preg_match_all('@<meta itemprop="image" content="(.*?)" />@si',$lokasyon, $resimler);
+    preg_match_all('@<div itemprop="description">(.*?)</div>@si', $lokasyon, $aciklama);
 
 
     echo "latitude = ".$yazi_lokasyon_lat[1][0]."<br>";
@@ -30,6 +31,22 @@ for ( $j = 0; $j < 20 ; $j++ )
     //echo "Detaylar = ".$detaylar[1][0]."<br>";
     echo "İletişim Bİlgileri = ".$contact[1][0]."<br>";
     echo 'Resimler =<img src="'.$resimler[1][0].'"/><br>';
+
+
+    $aciklama = strip_tags($aciklama[1][0]);
+    $aciklama = str_replace('<div', '', $aciklama);
+    $aciklama = htmlentities($aciklama);
+    $aciklama = str_replace('<font', '', $aciklama);
+    $aciklama = str_replace('<span', '', $aciklama);
+    $aciklama = str_replace('<p', '', $aciklama);
+    $aciklama = html_entity_decode($aciklama);
+
+    if(empty($aciklama)){
+        echo "<p style='color:red;'>Bu ilana ait açıklama yoktur.</p>";
+    }
+    else {
+        echo "İlan açıklaması : " . $aciklama . "<br>";
+    }
 
 
 
